@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+:root {
+    --background-color: #1a1a1a;
+    --parchment-color: #f0e6d2;
+    --gold-accent: #c89b4b; /* Default Gold */
+    --dark-red: #8c1c1c;
+    --dark-green: #3a5a40;
+    --text-color: #e0e0e0;
+    --border-color: #5a4a3a;
+    --hover-color: rgba(200, 155, 75, 0.1);
+
+    /* Floor Colors */
+    --floor-malkuth-gold: #e08f33;
+    --floor-yesod-violet: #8a4a8a;
+    --floor-hod-amber: #d9a443;
+    --floor-binah-purple: #6c5a8d;
+    --floor-netzach-green: #2e8b57;
+
+    /* Glyph Colors */
+    --glyph-color-malkuth: rgba(224, 143, 51, 0.2);
+    --glyph-color-yesod: rgba(138, 74, 138, 0.2);
+    --glyph-color-hod: rgba(217, 164, 67, 0.2);
+    --glyph-color-binah: rgba(108, 90, 141, 0.2);
+    --glyph-color-netzach: rgba(46, 139, 87, 0.2);
+}
+
+body {
+    /* Removed universal background */
+    font-family: 'Cinzel', serif;
+    color: var(--text-color);
+    margin: 0;
+    padding-top: 80px; /* For pages with top-nav */
+    min-height: 100vh;
+    position: relative; /* Needed for glyphs */
+    overflow: hidden; /* Hide overflow from glyphs */
+}
+
+/* Specific body styles for login/register pages (no top-nav) */
+body.login-page {
+    padding-top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(ellipse at center, #2c2a2a 0%, #1a1a1a 70%, #000000 100%); /* Login/Register specific background */
+}
+
+/* Floor-specific backgrounds */
+body.floor-malkuth { background: radial-gradient(ellipse at center, #4a3f30 0%, #1a1a1a 70%), url('https://www.transparenttextures.com/patterns/old-paper.png'); }
+body.floor-yesod { background: radial-gradient(ellipse at center, #4a3a4a 0%, #1a1a1a 70%), url('https://www.transparenttextures.com/patterns/subtle-zebra-3d.png'); }
+body.floor-hod { background: radial-gradient(ellipse at center, #4a4a3a 0%, #1a1a1a 70%), url('https://www.transparenttextures.com/patterns/lined-paper.png'); }
+body.floor-binah { background: radial-gradient(ellipse at center, #3c3a4d 0%, #1a1a1a 70%), url('https://www.transparenttextures.com/patterns/concrete-wall.png'); }
+body.floor-netzach { background: radial-gradient(ellipse at center, #2a4d3a 0%, #1a1a1a 70%), url('https://www.transparenttextures.com/patterns/wood-pattern.png'); }
+
+
+/* Animated glyphs container */
+.glyph-container {
+    position: fixed; /* Fixed so it covers the whole viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0; /* Behind content */
+}
+
+.glyph {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: drift 20s linear infinite;
+}
+
+/* Glyph colors based on floor */
+.glyph-container.floor-malkuth .glyph { color: var(--glyph-color-malkuth); }
+.glyph-container.floor-yesod .glyph { color: var(--glyph-color-yesod); }
+.glyph-container.floor-hod .glyph { color: var(--glyph-color-hod); }
+.glyph-container.floor-binah .glyph { color: var(--glyph-color-binah); }
+.glyph-container.floor-netzach .glyph { color: var(--glyph-color-netzach); }
+
+
+@keyframes drift {
+    from { transform: translateY(100vh) scale(1); opacity: 1; }
+    to { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+}
+
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(43, 43, 43, 0.85);
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.logo { font-weight: 700; font-size: 1.5rem; color: var(--gold-accent); text-decoration: none; text-shadow: 0 0 5px rgba(200, 155, 75, 0.5); }
+.nav-tabs { display: flex; gap: 1rem; position: absolute; left: 50%; transform: translateX(-50%); }
+.nav-tab { color: var(--parchment-color); text-decoration: none; padding: 0.5rem 1rem; border: 1px solid transparent; transition: all 0.3s ease; }
+.nav-tab.active, .nav-tab:hover { color: var(--gold-accent); border-bottom: 1px solid var(--gold-accent); }
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    position: relative; /* Ensure content is above glyphs */
+    z-index: 1;
+}
+
+.library-container {
+    background-color: rgba(43, 43, 43, 0.85);
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+    padding: 2rem 3rem;
+    width: 100%;
+    max-width: 1000px; /* Default max-width for content */
+    height: calc(100vh - 80px - 4rem); /* Adjust height to fit viewport, minus padding and header */
+    overflow-y: auto; /* Enable vertical scrolling */
+    text-align: center;
+    backdrop-filter: blur(3px);
+}
+
+h1 {
+    color: var(--gold-accent);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 8px rgba(200, 155, 75, 0.4);
+}
+
+/* Floor-specific overrides */
+.floor-malkuth h1 { color: var(--floor-malkuth-gold); text-shadow: 0 0 8px var(--floor-malkuth-gold); }
+.floor-malkuth .btn-filter.active { background-color: var(--floor-malkuth-gold); border-color: var(--floor-malkuth-gold); color: #1a1a1a; }
+
+.floor-yesod h1 { color: var(--floor-yesod-violet); text-shadow: 0 0 8px var(--floor-yesod-violet); }
+
+.floor-hod h1 { color: var(--floor-hod-amber); text-shadow: 0 0 8px var(--floor-hod-amber); }
+
+.floor-binah h1 { color: var(--floor-binah-purple); text-shadow: 0 0 8px var(--floor-binah-purple); }
+.floor-binah .book-table th { color: var(--floor-binah-purple); }
+
+.floor-netzach h1 { color: var(--floor-netzach-green); text-shadow: 0 0 8px var(--floor-netzach-green); }
+.floor-netzach .btn-submit { background-color: var(--floor-netzach-green); }
+
+/* Login page specific styles */
+.login-sigil { font-size: 5rem; color: var(--gold-accent); margin-bottom: 1rem; text-shadow: 0 0 15px rgba(200, 155, 75, 0.5); }
+.flavor-text { font-size: 0.9rem; color: var(--parchment-color); margin-bottom: 2rem; font-style: italic; }
+
+/* Status-specific colors */
+.status-available { color: var(--dark-green); font-weight: bold; }
+.status-borrowed { color: var(--dark-red); font-weight: bold; }
+.status-reserved { color: var(--floor-hod-amber); font-weight: bold; }
+
+/* Table and Filter Styles */
+.book-table { width: 100%; margin-top: 2rem; border-collapse: collapse; font-family: 'Arial', sans-serif; }
+.book-table th, .book-table td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
+.book-table th { background-color: #333; color: var(--gold-accent); font-family: 'Cinzel', serif; }
+.book-table td { color: var(--parchment-color); }
+.book-table tbody tr:hover { background-color: var(--hover-color); }
+
+.filter-form { display: flex; flex-direction: column; gap: 1rem; }
+.filter-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; width: 100%; }
+.filter-row .form-control { flex-grow: 1; }
+.filter-buttons { display: flex; gap: 0.5rem; align-items: center; }
+.btn-filter { background-color: #444; color: var(--parchment-color); border: 1px solid var(--border-color); padding: 0.5rem 1rem; font-family: 'Cinzel', serif; cursor: pointer; text-decoration: none; }
+.btn-filter.active, .btn-filter:hover { background-color: var(--gold-accent); color: #1a1a1a; border-color: var(--gold-accent); }
+
+.btn-borrow { background-color: var(--dark-green); color: var(--parchment-color); border: none; padding: 0.5rem 1rem; cursor: pointer; font-family: 'Cinzel', serif; }
+.btn-return { background-color: var(--dark-red); color: var(--parchment-color); border: none; padding: 0.5rem 1rem; cursor: pointer; }
+.btn-reserve { background-color: var(--floor-binah-purple); color: var(--parchment-color); border: none; padding: 0.5rem 1rem; cursor: pointer; font-family: 'Cinzel', serif; }
+.btn-borrow:disabled, .btn-reserve:disabled { background-color: #555; color: #888; cursor: not-allowed; }
+
+/* Profile Page Styles */
+.profile-section { margin-top: 2rem; text-align: left; border-top: 1px solid var(--border-color); padding-top: 2rem; }
+.profile-section h2 { color: var(--gold-accent); margin-top: 0; }
+textarea.form-control { min-height: 120px; resize: vertical; }
+
+.form-group { margin-bottom: 1.5rem; text-align: left; }
+.form-label { display: block; margin-bottom: 0.5rem; font-weight: 400; color: var(--text-color); }
+.form-control { width: 100%; padding: 0.75rem; background-color: #333; border: 1px solid var(--border-color); border-radius: 3px; color: var(--parchment-color); font-family: 'Arial', sans-serif; }
+.btn-submit { background-color: var(--gold-accent); color: var(--background-color); border: none; padding: 0.75rem 1.5rem; font-family: 'Cinzel', serif; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border-radius: 3px; width: auto; transition: background-color 0.3s ease; }
+.btn-submit:hover { background-color: #e0b469; }
+.link-group { margin-top: 1.5rem; font-size: 0.9rem; }
+.link-group a { color: var(--gold-accent); text-decoration: none; }
+.link-group a:hover { text-decoration: underline; }
+.text-danger { color: var(--dark-red); font-weight: bold; margin-top: 1rem; }

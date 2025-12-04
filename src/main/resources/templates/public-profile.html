@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>The Library - Guest Profile</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <style>
+        .profile-bio {
+            margin-top: 2rem;
+            text-align: left;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            white-space: pre-wrap; /* Preserves formatting of the bio */
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body class="floor-yesod">
+    <div th:replace="fragments :: header(activeTab='PublicProfile')"></div>
+
+    <div class="content-container">
+        <div class="library-container">
+            <h1>Guest Profile</h1>
+            <div class="profile-info" style="text-align: left;">
+                <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+            </div>
+
+            <div class="profile-bio">
+                <p th:if="${user.bio}" th:text="${user.bio}"></p>
+                <p th:unless="${user.bio}" style="font-style: italic;">This guest has not yet written their story.</p>
+            </div>
+            
+            <div class="link-group" style="margin-top: 2rem; text-align: center;">
+                <a th:href="@{/shelf}">Return to the Shelf</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

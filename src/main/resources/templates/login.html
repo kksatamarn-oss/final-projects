@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>The Library - Login</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body class="login-page">
+    <div class="glyph-container">
+        <!-- These will be animated by CSS -->
+        <div class="glyph" style="left: 10%; animation-delay: 0s;">✧</div>
+        <div class="glyph" style="left: 20%; animation-delay: 5s;">◈</div>
+        <div class="glyph" style="left: 30%; animation-delay: 2s;">◇</div>
+        <div class="glyph" style="left: 40%; animation-delay: 8s;">✧</div>
+        <div class="glyph" style="left: 50%; animation-delay: 3s;">◈</div>
+        <div class="glyph" style="left: 60%; animation-delay: 6s;">◇</div>
+        <div class="glyph" style="left: 70%; animation-delay: 1s;">✧</div>
+        <div class="glyph" style="left: 80%; animation-delay: 4s;">◈</div>
+        <div class="glyph" style="left: 90%; animation-delay: 7s;">◇</div>
+    </div>
+
+    <div class="library-container">
+        <div class="login-sigil">◈</div>
+        <h1>The Library</h1>
+        <p class="flavor-text">"May you find your book in this place."</p>
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="username" class="form-label">Invitation:</label>
+                <input type="text" id="username" name="username" class="form-control" autofocus="autofocus" />
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Codeword:</label>
+                <input type="password" id="password" name="password" class="form-control" />
+            </div>
+            <button type="submit" class="btn-submit">Enter the Library</button>
+        </form>
+        <div class="link-group">
+            <p>No invitation? <a th:href="@{/register}">Manifest one here</a>.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript for the pop-up -->
+    <script th:if="${error}">
+        alert("[[${error}]]");
+    </script>
+</body>
+</html>

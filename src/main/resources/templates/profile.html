@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>The Library - Profile</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <style>
+        .profile-section {
+            margin-top: 2rem;
+            text-align: left;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+        }
+        .profile-section h2 {
+            color: var(--gold-accent);
+            margin-top: 0;
+        }
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body class="floor-netzach">
+    <div th:replace="fragments :: header(activeTab='Profile')"></div>
+
+    <div class="content-container">
+        <div class="library-container">
+            <h1>Your Profile</h1>
+            <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+            <div class="profile-info" style="text-align: left;">
+                <p><strong>Username:</strong> <span th:text="${user.username}"></span></p>
+            </div>
+
+            <!-- Bio Section -->
+            <div class="profile-section">
+                <h2>Manage Bio</h2>
+                <form th:action="@{/profile/bio}" method="post">
+                    <div class="form-group">
+                        <label for="bio" class="form-label">Your Bio:</label>
+                        <textarea id="bio" name="bio" class="form-control" th:text="${user.bio}"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" style="width: auto;">Update Bio</button>
+                </form>
+            </div>
+
+            <!-- Password Section -->
+            <div class="profile-section">
+                <h2>Change Password</h2>
+                <form th:action="@{/profile/password}" method="post">
+                    <div class="form-group">
+                        <label for="oldPassword" class="form-label">Old Password:</label>
+                        <input type="password" id="oldPassword" name="oldPassword" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword" class="form-label">New Password:</label>
+                        <input type="password" id="newPassword" name="newPassword" class="form-control" required />
+                    </div>
+                    <button type="submit" class="btn-submit" style="width: auto;">Change Password</button>
+                </form>
+            </div>
+
+            <div class="link-group" style="margin-top: 2rem;">
+                <a th:href="@{/logout}">Leave the Library</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

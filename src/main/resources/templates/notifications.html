@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>The Library - Notifications</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <style>
+        .notification-list { list-style: none; padding: 0; }
+        .notification-item {
+            background-color: #333;
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--floor-hod-amber);
+        }
+    </style>
+</head>
+<body class="floor-hod">
+    <div th:replace="fragments :: header(activeTab='Notifications')"></div>
+
+    <div class="content-container">
+        <div class="library-container">
+            <h1>Notifications</h1>
+            
+            <ul class="notification-list" th:if="${!notifications.isEmpty()}">
+                <li th:each="notification : ${notifications}" class="notification-item">
+                    <p th:text="${notification.message}"></p>
+                    <small th:text="${'Received on: ' + notification.createdDate}"></small>
+                </li>
+            </ul>
+
+            <div th:if="${notifications.isEmpty()}">
+                <p>You have no new notifications.</p>
+            </div>
+
+            <div class="link-group" style="margin-top: 2rem;">
+                <a th:href="@{/logout}">Leave the Library</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- This file is not meant to be displayed directly -->
+</head>
+<body>
+
+    <!-- Reusable Header Fragment -->
+    <div th:fragment="header(activeTab)">
+        <div class="glyph-container" th:classappend="${activeTab == 'Shelf' ? 'floor-malkuth' : (activeTab == 'History' ? 'floor-binah' : (activeTab == 'Notifications' ? 'floor-hod' : (activeTab == 'Profile' ? 'floor-netzach' : (activeTab == 'PublicProfile' ? 'floor-yesod' : ''))))}">
+            <!-- These will be animated by CSS -->
+            <div class="glyph" style="left: 10%; animation-delay: 0s;">✧</div>
+            <div class="glyph" style="left: 20%; animation-delay: 5s;">◈</div>
+            <div class="glyph" style="left: 30%; animation-delay: 2s;">◇</div>
+            <div class="glyph" style="left: 40%; animation-delay: 8s;">✧</div>
+            <div class="glyph" style="left: 50%; animation-delay: 3s;">◈</div>
+            <div class="glyph" style="left: 60%; animation-delay: 6s;">◇</div>
+            <div class="glyph" style="left: 70%; animation-delay: 1s;">✧</div>
+            <div class="glyph" style="left: 80%; animation-delay: 4s;">◈</div>
+            <div class="glyph" style="left: 90%; animation-delay: 7s;">◇</div>
+        </div>
+        <nav class="top-nav">
+            <a th:href="@{/shelf}" class="logo">Library of Ruina</a>
+            <div class="nav-tabs">
+                <a th:href="@{/history}" class="nav-tab" th:classappend="${activeTab == 'History'} ? 'active'">History</a>
+                <a th:href="@{/shelf}" class="nav-tab" th:classappend="${activeTab == 'Shelf'} ? 'active'">The Shelf</a>
+                <a th:href="@{/notifications}" class="nav-tab" th:classappend="${activeTab == 'Notifications'} ? 'active'">Notifications</a>
+                <a th:href="@{/profile}" class="nav-tab" th:classappend="${activeTab == 'Profile'} ? 'active'">Profile</a>
+            </div>
+        </nav>
+    </div>
+
+</body>
+</html>
